@@ -1,0 +1,12 @@
+#!/bin/bash
+NAME="<%= name %>"
+VERSION="<%= version %>"
+UNPACKED_DIR="<%= unpacked_dir %>"
+INSTALL_DIR="/usr/local/bioinf/$NAME"
+
+mkdir -p $INSTALL_DIR
+cp -R $UNPACKED_DIR $INSTALL_DIR/$NAME-$VERSION
+chmod +x $INSTALL_DIR/$NAME-$VERSION/$NAME
+
+#ln -s $INSTALL_DIR/$NAME-$VERSION $INSTALL_DIR/$NAME
+#ln -s $INSTALL_DIR/$NAME-$VERSION/$NAME /usr/local/bin/

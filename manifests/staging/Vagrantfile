@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+
+  box                  = 'natty'
+  vagrant_base_box_url = 'http://faro.puppetlabs.lan/vagrant'
+  network              = '172.20.0'
+  use_master           = false
+  path_default         = use_master ? 'scripts/run-master.sh' : 'scripts/run.sh'
+
+  vms = { :lucid => { :box => 'lucid64',
+                      :ip  => "#{network}.10" },
+          :centos5 => { :box => 'centos56_64',
+                        :ip  => "#{network}.11" },
+  }.each do |name, attrs|
+
+    config.vm.define name do |config|
+      box = attrs[:box] || box
+      config.vm.box = box
+      config.vm.box_url = "#{vagrant_base_box_url}/#{box}.box"
+
+      config.vm.host_name = name.to_s
+      config.vm.network(:hostonly, attrs[:ip])
+
+      config.vm.customize([ 'modifyvm', :id,
+                            '--memory', attrs[:memory] || '768',
+                            '--name', name.to_s ])
+
+      config.vm.share_folder("staging", "/etc/puppet/modules/staging", ".", :nfs => true)
+      config.vm.share_folder("rake", "/rake", ".", :nfs => true)
+
+      path = attrs[:path] || path_default
+
+      config.vm.provision :shell, :path => 'spec/script/unit.sh'
+    end
+  end
+end
