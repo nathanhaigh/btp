@@ -1,0 +1,73 @@
+class workshop::ngs::module::qc (
+  $working_sub_dir = 'QC',
+) inherits workshop::ngs {
+  # Downloads the QC data from the NeCTAR Cloud storage
+  # Sets up a directory structure under $workshop::ngs::working_dir/QC
+  #   and associated symlink structures to the workshop data
+  # Currently, there is no symlinking from the user's directory to the workshop content
+  
+  $data_sub_dir= undef  # couldn't get this to work as a class parameter
+
+  $working_dir = "$workshop::ngs::working_dir/$working_sub_dir"
+  $data_dir    = "$workshop::ngs::data_dir/$data_sub_dir"
+  
+  define download_and_symlink_file ($url, $target, $link) {
+    download_file { $link:
+      url      => $url,
+      out_file => $target,
+    }
+    file {"symlink_${link}":
+      ensure  => link,
+      path    => $link,
+      target  => $target,
+      owner   => $workshop::ngs::trainee_user,
+      require => [ User['trainee'], File[$target] ],
+    }
+  }
+  
+  ##########
+  # Pull down data sets/files into the workshop's working directory
+  ##########
+  download_and_symlink_file { 'bad_example.fastq':
+    url    => "http://swift.rc.nectar.org.au:8888/v1/AUTH_809/NGSDataQC/bad_example.fastq",
+    target => "$data_dir/bad_example.fastq",
+    link   => "$working_dir/bad_example.fastq",
+  }
+  download_and_symlink_file { 'good_example.fastq':
+    url    => "http://swift.rc.nectar.org.au:8888/v1/AUTH_809/NGSDataQC/good_example.fastq",
+    target => "$data_dir/good_example.fastq",
+    link   => "$working_dir/good_example.fastq",
+  }
+  download_and_symlink_file { 'FASTQC-tutorial.docx':
+    url    => "http://swift.rc.nectar.org.au:8888/v1/AUTH_809/NGSDataQC/FASTQC-tutorial.docx",
+    target => "$data_dir/FASTQC-tutorial.docx",
+    link   => "$working_dir/FASTQC-tutorial.docx",
+  }
+  
+  ##########
+  # Set up the module's working directory
+  ##########
+  exec { 'mkdir_qc_workshop_dir':
+    path    => [ '/bin', '/usr/bin' ],
+    command => "mkdir -p $working_dir",
+    unless  => "test -d $working_dir",
+  }
+  file {'qc_workshop_dir':
+    path    => $working_dir,
+    ensure  => directory,
+    owner   => $workshop::ngs::trainee_user,
+    mode    => 0644,
+    recurse => true,
+    require => [ User['trainee'], Exec['mkdir_qc_workshop_dir'] ],
+  }
+  
+  ##########
+  # ensure packages and custom tools are installed
+  ##########
+  package { 'firefox':
+    ensure => installed,
+  }
+  class { 'tools::fastqc': }
+  class { 'tools::fastx-toolkit': }
+}
+
