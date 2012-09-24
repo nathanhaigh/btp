@@ -1,0 +1,59 @@
+class workshop::ngs ( $dir = 'NGS' ) inherits workshop {
+  # Creates sub-directories "working_dir" and "data" under under $workshop::dir/NGS
+  # ensures NGS Trainer and NGS Trainee user accounts are present
+  
+  $local_dir    = "$workshop::dir/$dir"
+  $working_dir  = "${local_dir}/working_dir"
+  $data_dir     = "${local_dir}/data"
+  $trainer_user = 'ngstrainer'
+  $trainee_user = 'ngstrainee'  
+
+  # TODO: put users in a separate class such as workshop:ngs:users
+  user { 'trainer':
+    name       => $trainer_user,
+    password   => '$6$I4fslOKy$PXSQ3outv6pf6LFPZ0MIbhAYjwbhmQfcW7.mQqD5U710eFYPvTpsYOllwkA/4BpQ.yd8JoTebd3SnRFljLELR0',
+    groups     => ['sudo'],
+    ensure     => 'present',
+    comment    => 'NGS Trainer',
+    home       => '/home/ngstrainer',
+    managehome => true,
+    shell      => '/bin/bash',
+  }
+  
+  user { 'trainee':
+    name       => "${trainee_user}",
+    password   => '$6$FY0FCKuG$g22Q.1LzwO/J17hZ/XmpFaK.CioG.xmYkWYwF5cZZkykHr4DTzlO65SEnBXaI/Dg4bTfiGZqQ5O2a30QCu8PD0',
+    ensure     => 'present',
+    comment    => 'NGS Trainee',
+    home       => '/home/ngstrainee',
+    home => true,
+    shell      => '/bin/bash',
+  }
+
+  file {'workshop_dir':
+    path    => "${local_dir}",
+    ensure  => directory,
+    owner   => "${trainer_user}",
+    mode    => 0644,
+    recurse => true,
+    require => User['trainer'],
+  }
+
+  file {'working_dir':
+    path   => $working_dir,
+    ensure => directory,
+    owner  => "${trainee_user}",
+    mode   => 0644,
+    require => [ User['trainee'], File['workshop_dir'] ],
+  }
+  
+  file {'data_dir':
+    path   => $data_dir,
+    ensure => directory,
+    owner  => "${trainer_user}",
+    mode   => 0644,
+    require => [ User['trainer'], File['workshop_dir'] ],
+  }
+
+}
+

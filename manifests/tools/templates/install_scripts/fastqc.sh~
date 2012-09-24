@@ -1,0 +1,9 @@
+#!/bin/bash
+VERSION="<%= ${tools::fastqc}::version %>"
+INSTALL_DIR="/usr/local/bioinf/fastqc"
+mkdir -p $INSTALL_DIR
+cp -R FastQC $INSTALL_DIR/fastqc-$VERSION
+chmod +x $INSTALL_DIR/fastqc-$VERSION/fastqc
+
+#ln -s $INSTALL_DIR/fastqc-$VERSION $INSTALL_DIR/fastqc
+#ln -s $INSTALL_DIR/fastqc-$VERSION/fastqc /usr/local/bin/

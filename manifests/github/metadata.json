@@ -1,0 +1,25 @@
+{
+  "name": "puppet-github",
+  "version": "0.0.0-alpha",
+  "source": "http://github.com/rynr/puppet-github",
+  "author": "Rainer Jung",
+  "license": "GPL3",
+  "summary": "Download tarballs from github",
+  "description": "UNKNOWN",
+  "project_page": "http://rynr.github.com/puppet-github",
+  "dependencies": [
+
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "LICENSE": "e77399e5d74235530dfa40a370669ed0",
+    "Modulefile": "ec998f44388558b1167f2123f77c658f",
+    "README.markdown": "a45040ff4ae70bbcb86fede6c1f22aba",
+    "Rakefile": "828dbca02a632cbf734cad2d95c7ca32",
+    "manifests/init.pp": "3d0ca1da4d88c79c3476293c40c34d2a",
+    "spec/fixtures/manifests/site.pp": "d41d8cd98f00b204e9800998ecf8427e",
+    "spec/spec_helper.rb": "792eeb7aa7edafb93e2bc1d27c5e75c5"
+  }
+}

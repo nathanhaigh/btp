@@ -1,0 +1,13 @@
+deb http://au.archive.ubuntu.com/ubuntu/ precise universe
+deb http://au.archive.ubuntu.com/ubuntu/ precise multiverse
+deb http://au.archive.ubuntu.com/ubuntu/ precise-updates universe
+deb http://au.archive.ubuntu.com/ubuntu/ precise-updates multiverse
+deb http://archive.canonical.com/ubuntu precise partner
+deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
+deb http://cran.ms.unimelb.edu.au/bin/linux/ubuntu precise/
+deb http://archive.cloudera.com/debian maverick-cdh3 contrib
+deb http://archive.canonical.com/ubuntu maverick partner
+deb http://ppa.launchpad.net/freenx-team/ppa/ubuntu precise main
+deb http://nebc.nox.ac.uk/bio-linux/ unstable bio-linux
+deb http://download.virtualbox.org/virtualbox/debian precise contrib
+
