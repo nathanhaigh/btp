@@ -28,7 +28,7 @@ We start with an Ubuntu 12.04 LTS and install and configure the puppetmaster
     sudo apt-get install puppetmaster
     
     # Ask puppetmaster to autosign client certificates
-    echo "*" >> /puppet/autosign.conf
+    echo "*" >> /etc/puppet/autosign.conf
     
     # Install the BTP puppet modules
     cd /etc/puppet/modules
