@@ -23,9 +23,11 @@ Puppetmaster Configuration
 We start with an Ubuntu 12.04 LTS and install and configure the puppetmaster
 
     #!/bin/bash
+    sudo apt-get update
+    sudo apt-get --assume-yes upgrade
     wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
     sudo dpkg -i puppetlabs-release-precise.deb
-    sudo apt-get install puppetmaster git
+    sudo apt-get --assume-yes install puppetmaster git
     
     # Ask puppetmaster to autosign client certificates
     sudo sh -c 'echo "*" >> /etc/puppet/autosign.conf'
@@ -45,11 +47,13 @@ already been configured.
     #!/bin/bash
     PUPPETMASTER_IP="xxx.xxx.xx.xx"
     
-	wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
-	sudo dpkg -i puppetlabs-release-precise.deb
-	sudo apt-get install puppet
-	
-	echo "$PUPPETMASTER_IP puppet" >> /etc/hosts
-	
-	puppet agent ...
+    sudo apt-get update
+    sudo apt-get --assume-yes upgrade
+    wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+    sudo dpkg -i puppetlabs-release-precise.deb
+    sudo apt-get --assume-yes install puppet
+    
+    sudo sh -c 'echo "$PUPPETMASTER_IP puppet" >> /etc/hosts'
+   
+    puppet agent ...
    
