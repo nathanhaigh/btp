@@ -20,21 +20,22 @@ via OpenStack and EC2 APIs.
 Puppetmaster Configuration
 ==========================
 
-We start with an Ubuntu 12.04 LTS and install and configure the puppetmaster
+We start with an Ubuntu 12.04 LTS and install and configure the puppetmaster.
+On the NeCTAR Research Cloud, this script can be entered into the "User Data".
 
     #!/bin/bash
-    sudo apt-get update
-    sudo apt-get --assume-yes upgrade
+    apt-get update
+    apt-get --assume-yes upgrade
     wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
-    sudo dpkg -i puppetlabs-release-precise.deb
-    sudo apt-get --assume-yes install puppetmaster git
+    dpkg -i puppetlabs-release-precise.deb
+    apt-get --assume-yes install puppetmaster git
     
     # Ask puppetmaster to autosign client certificates
-    sudo sh -c 'echo "*" >> /etc/puppet/autosign.conf'
+    sh -c 'echo "*" >> /etc/puppet/autosign.conf'
     
     # Install the BTP puppet modules
     cd /etc/puppet/modules
-    sudo git clone https://github.com/nathanhaigh/puppet_bioinf_tools.git  
+    git clone https://github.com/nathanhaigh/puppet_bioinf_tools.git  
 
 Puppet Agent Configuration
 ==========================
