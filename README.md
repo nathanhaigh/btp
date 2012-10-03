@@ -25,14 +25,14 @@ We start with an Ubuntu 12.04 LTS and install and configure the puppetmaster
     #!/bin/bash
     wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
     sudo dpkg -i puppetlabs-release-precise.deb
-    sudo apt-get install puppetmaster
+    sudo apt-get install puppetmaster git
     
     # Ask puppetmaster to autosign client certificates
-    echo "*" >> /etc/puppet/autosign.conf
+    sudo sh -c 'echo "*" >> /etc/puppet/autosign.conf'
     
     # Install the BTP puppet modules
     cd /etc/puppet/modules
-    git clone https://github.com/nathanhaigh/puppet_bioinf_tools.git ./bioinf_tools  
+    sudo git clone https://github.com/nathanhaigh/puppet_bioinf_tools.git  
 
 Puppet Agent Configuration
 ==========================
