@@ -32,7 +32,7 @@ We start with an Ubuntu 12.04 LTS and install and configure the puppetmaster
     
     # Install the BTP puppet modules
     cd /etc/puppet/modules
-    git clone https://github.com/nathanhaigh/puppet_bioinf_tools.git ./bioinf_tools  
+    git clone https://github.com/nathanhaigh/puppet-bioinf_tools.git ./bioinf_tools  
 
 Puppet Agent Configuration
 ==========================
