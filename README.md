@@ -48,13 +48,13 @@ already been configured.
     #!/bin/bash
     PUPPETMASTER_IP="xxx.xxx.xx.xx"
     
-    sudo apt-get update
-    sudo apt-get --assume-yes upgrade
+    apt-get update
+    apt-get --assume-yes upgrade
     wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
-    sudo dpkg -i puppetlabs-release-precise.deb
-    sudo apt-get --assume-yes install puppet
+    dpkg -i puppetlabs-release-precise.deb
+    apt-get --assume-yes install puppet
     
-    sudo sh -c 'echo "$PUPPETMASTER_IP puppet" >> /etc/hosts'
+    sh -c 'echo "$PUPPETMASTER_IP puppet" >> /etc/hosts'
    
     puppet agent ...
    
